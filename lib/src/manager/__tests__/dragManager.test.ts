@@ -54,7 +54,7 @@ class MockLayoutAlgorithm implements LayoutAlgorithm<MockLayoutItem> {
 }
 
 const mockConstraint: Constraint = {
-    apply: () => {
+    constrain: () => {
         return {
             left: 12,
             top: 12,

@@ -78,7 +78,7 @@ const config: Config = {
                 },
                 // { to: "/samples", label: "Samples", position: "left" },
                 {
-                    href: "https://github.com/facebook/docusaurus",
+                    href: "https://github.com/fpsqdb/dnd-layout",
                     label: "GitHub",
                     position: "right",
                 },

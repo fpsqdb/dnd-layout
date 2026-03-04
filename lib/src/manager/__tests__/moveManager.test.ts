@@ -352,7 +352,7 @@ describe("MoveManager", () => {
             const listener = vi.fn();
             moveManager.addMovingListener(listener);
             const constraint: Constraint = {
-                apply: (context) => {
+                constrain: (context) => {
                     return {
                         left: context.localPosition.left + 10,
                         top: context.localPosition.top + 10,
@@ -380,7 +380,7 @@ describe("MoveManager", () => {
             const listener = vi.fn();
             moveManager.addMovingListener(listener);
             const constraint: Constraint = {
-                apply: (context) => {
+                constrain: (context) => {
                     return context.globalPositionToLocalPosition(context.globalPosition);
                 },
             };
@@ -422,7 +422,7 @@ describe("MoveManager", () => {
             const listener = vi.fn();
             moveManager.addMovingListener(listener);
             const constraint: Constraint = {
-                apply: (context) => {
+                constrain: (context) => {
                     return context.globalPositionToLocalPosition(context.globalPosition);
                 },
             };
@@ -455,7 +455,7 @@ describe("MoveManager", () => {
             };
             let windowRect: Rectangle | null = null;
             const constraint: Constraint = {
-                apply: (context) => {
+                constrain: (context) => {
                     windowRect = context.windowRect;
                     return {
                         left: context.localPosition.left + 10,

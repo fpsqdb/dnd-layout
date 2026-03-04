@@ -23,17 +23,17 @@ describe("axisConstraint", () => {
     });
 
     describe("verticalAxisConstraint", () => {
-        it("should return a constraint object with apply method", () => {
+        it("should return a constraint object with constrain method", () => {
             const constraint = verticalAxisConstraint();
-            expect(constraint).toHaveProperty("apply");
-            expect(typeof constraint.apply).toBe("function");
+            expect(constraint).toHaveProperty("constrain");
+            expect(typeof constraint.constrain).toBe("function");
         });
 
         it("should lock horizontal movement (left stays at start position)", () => {
             const constraint = verticalAxisConstraint();
             const context = createMockContext({ left: 50, top: 50 }, { left: 100, top: 150 });
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(50);
             expect(result.top).toBe(150);
@@ -43,7 +43,7 @@ describe("axisConstraint", () => {
             const constraint = verticalAxisConstraint();
             const context = createMockContext({ left: 50, top: 50 }, { left: 50, top: 200 });
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(50);
             expect(result.top).toBe(200);
@@ -53,7 +53,7 @@ describe("axisConstraint", () => {
             const constraint = verticalAxisConstraint();
             const context = createMockContext({ left: 50, top: 50 }, { left: -100, top: -50 });
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(50);
             expect(result.top).toBe(-50);
@@ -63,7 +63,7 @@ describe("axisConstraint", () => {
             const constraint = verticalAxisConstraint();
             const context = createMockContext({ left: 0, top: 0 }, { left: 100, top: 100 });
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(0);
             expect(result.top).toBe(100);
@@ -73,7 +73,7 @@ describe("axisConstraint", () => {
             const constraint = verticalAxisConstraint();
             const context = createMockContext({ left: 50, top: 50 }, { left: 50, top: 50 });
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(50);
             expect(result.top).toBe(50);
@@ -81,17 +81,17 @@ describe("axisConstraint", () => {
     });
 
     describe("horizontalAxisConstraint", () => {
-        it("should return a constraint object with apply method", () => {
+        it("should return a constraint object with constrain method", () => {
             const constraint = horizontalAxisConstraint();
-            expect(constraint).toHaveProperty("apply");
-            expect(typeof constraint.apply).toBe("function");
+            expect(constraint).toHaveProperty("constrain");
+            expect(typeof constraint.constrain).toBe("function");
         });
 
         it("should lock vertical movement (top stays at start position)", () => {
             const constraint = horizontalAxisConstraint();
             const context = createMockContext({ left: 50, top: 50 }, { left: 150, top: 100 });
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(150);
             expect(result.top).toBe(50);
@@ -101,7 +101,7 @@ describe("axisConstraint", () => {
             const constraint = horizontalAxisConstraint();
             const context = createMockContext({ left: 50, top: 50 }, { left: 200, top: 50 });
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(200);
             expect(result.top).toBe(50);
@@ -111,7 +111,7 @@ describe("axisConstraint", () => {
             const constraint = horizontalAxisConstraint();
             const context = createMockContext({ left: 50, top: 50 }, { left: -100, top: -50 });
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(-100);
             expect(result.top).toBe(50);
@@ -121,7 +121,7 @@ describe("axisConstraint", () => {
             const constraint = horizontalAxisConstraint();
             const context = createMockContext({ left: 0, top: 0 }, { left: 100, top: 100 });
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(100);
             expect(result.top).toBe(0);
@@ -131,7 +131,7 @@ describe("axisConstraint", () => {
             const constraint = horizontalAxisConstraint();
             const context = createMockContext({ left: 50, top: 50 }, { left: 50, top: 50 });
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(50);
             expect(result.top).toBe(50);
@@ -145,11 +145,11 @@ describe("axisConstraint", () => {
 
             const context = createMockContext({ left: 50, top: 50 }, { left: 150, top: 150 });
 
-            const afterVertical = verticalConstraint.apply(context);
+            const afterVertical = verticalConstraint.constrain(context);
             expect(afterVertical).toEqual({ left: 50, top: 150 });
 
             const contextAfterVertical = createMockContext({ left: 50, top: 50 }, afterVertical);
-            const afterHorizontal = horizontalConstraint.apply(contextAfterVertical);
+            const afterHorizontal = horizontalConstraint.constrain(contextAfterVertical);
             expect(afterHorizontal).toEqual({ left: 50, top: 50 });
         });
     });

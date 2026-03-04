@@ -24,10 +24,10 @@ describe("containerConstraint", () => {
     });
 
     describe("basic functionality", () => {
-        it("should return a constraint object with apply method", () => {
+        it("should return a constraint object with constrain method", () => {
             const constraint = containerConstraint();
-            expect(constraint).toHaveProperty("apply");
-            expect(typeof constraint.apply).toBe("function");
+            expect(constraint).toHaveProperty("constrain");
+            expect(typeof constraint.constrain).toBe("function");
         });
 
         it("should not modify position when item is inside container", () => {
@@ -38,7 +38,7 @@ describe("containerConstraint", () => {
                 { left: 50, top: 50 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result).toEqual({ left: 50, top: 50 });
         });
@@ -53,7 +53,7 @@ describe("containerConstraint", () => {
                 { left: -20, top: 50 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(0);
             expect(result.top).toBe(50);
@@ -67,7 +67,7 @@ describe("containerConstraint", () => {
                 { left: 450, top: 50 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(400);
             expect(result.top).toBe(50);
@@ -81,7 +81,7 @@ describe("containerConstraint", () => {
                 { left: 50, top: -20 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(50);
             expect(result.top).toBe(0);
@@ -95,7 +95,7 @@ describe("containerConstraint", () => {
                 { left: 50, top: 450 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(50);
             expect(result.top).toBe(400);
@@ -109,7 +109,7 @@ describe("containerConstraint", () => {
                 { left: -20, top: -20 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(0);
             expect(result.top).toBe(0);
@@ -125,7 +125,7 @@ describe("containerConstraint", () => {
                 { left: -20, top: 50 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(-20);
             expect(result.top).toBe(50);
@@ -139,7 +139,7 @@ describe("containerConstraint", () => {
                 { left: 450, top: 50 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(450);
             expect(result.top).toBe(50);
@@ -153,7 +153,7 @@ describe("containerConstraint", () => {
                 { left: 50, top: -20 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(50);
             expect(result.top).toBe(-20);
@@ -167,7 +167,7 @@ describe("containerConstraint", () => {
                 { left: 50, top: 450 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(50);
             expect(result.top).toBe(450);
@@ -186,7 +186,7 @@ describe("containerConstraint", () => {
                 { left: -20, top: -20 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(-20);
             expect(result.top).toBe(-20);
@@ -200,7 +200,7 @@ describe("containerConstraint", () => {
                 { left: -20, top: -20 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(0);
             expect(result.top).toBe(0);
@@ -216,7 +216,7 @@ describe("containerConstraint", () => {
                 { left: 0, top: 0 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(0);
             expect(result.top).toBe(0);
@@ -230,7 +230,7 @@ describe("containerConstraint", () => {
                 { left: 50, top: 50 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(50);
             expect(result.top).toBe(50);
@@ -244,7 +244,7 @@ describe("containerConstraint", () => {
                 { left: 80, top: 80 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(100);
             expect(result.top).toBe(100);
@@ -258,7 +258,7 @@ describe("containerConstraint", () => {
                 { left: 50, top: 50 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(50);
             expect(result.top).toBe(50);

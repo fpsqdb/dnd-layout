@@ -24,10 +24,10 @@ describe("windowConstraint", () => {
     });
 
     describe("basic functionality", () => {
-        it("should return a constraint object with apply method", () => {
+        it("should return a constraint object with constrain method", () => {
             const constraint = windowConstraint();
-            expect(constraint).toHaveProperty("apply");
-            expect(typeof constraint.apply).toBe("function");
+            expect(constraint).toHaveProperty("constrain");
+            expect(typeof constraint.constrain).toBe("function");
         });
 
         it("should not modify position when item is inside window", () => {
@@ -39,7 +39,7 @@ describe("windowConstraint", () => {
                 { left: 100, top: 100 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result).toEqual({ left: 100, top: 100 });
         });
@@ -55,7 +55,7 @@ describe("windowConstraint", () => {
                 { left: -20, top: 100 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(0);
             expect(result.top).toBe(100);
@@ -70,7 +70,7 @@ describe("windowConstraint", () => {
                 { left: 1850, top: 100 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(1820);
             expect(result.top).toBe(100);
@@ -85,7 +85,7 @@ describe("windowConstraint", () => {
                 { left: 100, top: -20 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(100);
             expect(result.top).toBe(0);
@@ -100,7 +100,7 @@ describe("windowConstraint", () => {
                 { left: 100, top: 1000 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(100);
             expect(result.top).toBe(980);
@@ -115,7 +115,7 @@ describe("windowConstraint", () => {
                 { left: -20, top: -20 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(0);
             expect(result.top).toBe(0);
@@ -132,7 +132,7 @@ describe("windowConstraint", () => {
                 { left: -20, top: 100 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(-20);
             expect(result.top).toBe(100);
@@ -147,7 +147,7 @@ describe("windowConstraint", () => {
                 { left: 1850, top: 100 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(1850);
             expect(result.top).toBe(100);
@@ -162,7 +162,7 @@ describe("windowConstraint", () => {
                 { left: 100, top: -20 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(100);
             expect(result.top).toBe(-20);
@@ -177,7 +177,7 @@ describe("windowConstraint", () => {
                 { left: 100, top: 1000 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(100);
             expect(result.top).toBe(1000);
@@ -197,7 +197,7 @@ describe("windowConstraint", () => {
                 { left: -20, top: -20 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(-20);
             expect(result.top).toBe(-20);
@@ -220,7 +220,7 @@ describe("windowConstraint", () => {
                 globalToLocal,
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(-50);
             expect(result.top).toBe(-50);
@@ -242,7 +242,7 @@ describe("windowConstraint", () => {
                 globalToLocal,
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(50);
             expect(result.top).toBe(50);
@@ -259,7 +259,7 @@ describe("windowConstraint", () => {
                 { left: 0, top: 0 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(0);
             expect(result.top).toBe(0);
@@ -274,7 +274,7 @@ describe("windowConstraint", () => {
                 { left: 50, top: 50 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(50);
             expect(result.top).toBe(50);
@@ -289,7 +289,7 @@ describe("windowConstraint", () => {
                 { left: 50, top: 50 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(50);
             expect(result.top).toBe(50);
@@ -304,7 +304,7 @@ describe("windowConstraint", () => {
                 { left: 0, top: 0 },
             );
 
-            const result = constraint.apply(context);
+            const result = constraint.constrain(context);
 
             expect(result.left).toBe(0);
             expect(result.top).toBe(0);
