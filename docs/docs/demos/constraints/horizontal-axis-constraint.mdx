@@ -1,0 +1,94 @@
+---
+sidebar_position: 2
+hide_table_of_contents: true
+sidebar_label: Horizontal Axis Constraint
+title: ""
+custom_edit_url: null
+---
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import Details from "@theme/MDXComponents/Details";
+import { Sample } from "@site/src/components/demos/horizontal-axis-constraint";
+
+This demo shows how to restrict dragging to the horizontal axis. Items can only be moved left and right.
+
+<Sample />
+
+<Details style={{ marginTop: 24 }}>
+  <summary>View source code</summary>
+  <Tabs groupId="language-choice">
+    <TabItem value="tsx" label="horizontal-axis-constraint.tsx">
+      ```tsx
+    import { createRowLayoutAlgorithm, DndLayout, horizontalAxisConstraint, useLayout } from "dnd-layout";
+    import "./common-layout.css";
+
+    export function Sample() {
+        const layout = useLayout(() => {
+            return {
+                algorithm: createRowLayoutAlgorithm({ rows: 1 }),
+                initialItems: [
+                    { id: "1", row: 0, rowSpan: 1, width: 100 },
+                    { id: "2", row: 1, rowSpan: 1, width: 100 },
+                    { id: "3", row: 2, rowSpan: 1, width: 100 },
+                    { id: "4", row: 0, rowSpan: 1, width: 100 },
+                    { id: "5", row: 1, rowSpan: 1, width: 100 },
+                    { id: "6", row: 2, rowSpan: 1, width: 100 },
+                    { id: "7", row: 0, rowSpan: 1, width: 100 },
+                    { id: "8", row: 1, rowSpan: 1, width: 100 },
+                ],
+            };
+        });
+        return (
+            <DndLayout
+                className="common-layout"
+                style={{
+                    height: 100,
+                }}
+                layout={layout}
+                layoutConfig={{
+                    containerFitContentWidth: true,
+                }}
+                constraints={[horizontalAxisConstraint()]}
+                itemRender={(item) => {
+                    return (
+                        <div
+                            className="common-layout-item"
+                            style={{
+                                width: 100,
+                            }}
+                        >
+                            {item.id}
+                        </div>
+                    );
+                }}
+            />
+        );
+    }
+      ```
+    </TabItem>
+    <TabItem value="css" label="common-layout.css">
+      ```css
+    .dnd-layout.common-layout {
+        border-radius: 4px;
+        border: var(--dnd-layout-item-border-color) solid 1px;
+        padding: 12px;
+    }
+
+    .dnd-layout .dnd-layout-item .common-layout-item {
+        border-radius: 4px;
+        border: var(--dnd-layout-item-border-color) solid 4px;
+        padding: 12px;
+        background-color: var(--dnd-layout-item-bg);
+    }
+
+    .dnd-layout .dnd-layout-item .common-layout-item:hover {
+        border-color: var(--dnd-layout-item-border-color-hover);
+    }
+    
+    .dnd-layout .dnd-layout-placeholder .dnd-layout-placeholder-default-content {
+        border-radius: 4px;
+    }
+      ```
+    </TabItem>
+  </Tabs>
+</Details>

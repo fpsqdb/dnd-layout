@@ -1,0 +1,20 @@
+.dnd-layout.common-layout {
+    border-radius: 4px;
+    border: var(--dnd-layout-item-border-color) solid 1px;
+    padding: 12px;
+}
+
+.dnd-layout .dnd-layout-item .common-layout-item {
+    border-radius: 4px;
+    border: var(--dnd-layout-item-border-color) solid 4px;
+    padding: 12px;
+    background-color: var(--dnd-layout-item-bg);
+}
+
+.dnd-layout .dnd-layout-item .common-layout-item:hover {
+    border-color: var(--dnd-layout-item-border-color-hover);
+}
+
+.dnd-layout .dnd-layout-placeholder .dnd-layout-placeholder-default-content {
+    border-radius: 4px;
+}

@@ -1,12 +1,12 @@
-# Dnd-Layout
-[![Build Status](https://img.shields.io/github/actions/workflow/status/fpsqdb/dnd-layout/test.yml?branch=main)](https://github.com/fpsqdb/dnd-layout/actions?query=workflow%3Atest)
-[![npm Package](https://img.shields.io/npm/v/dnd-layout.svg)](https://www.npmjs.org/package/dnd-layout) 
-![NPM dev or peer Dependency Version](https://img.shields.io/npm/dependency-version/dnd-layout/peer/react)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/fpsqdb/dnd-layout/blob/master/LICENSE) 
-![node](https://img.shields.io/node/v/dnd-layout) 
+---
+slug: /
+sidebar_position: 1
+sidebar_label: Getting Started
+title: Getting Started
+---
+import { GettingStartSample } from "@site/src/components/docs/getting-start";
 
 Dnd-Layout is a drag-and-drop layout system that automatically adjusts its positioning based on changes in item size.
-[Docs](https://dnd-layout.js.org) | [Demos](https://dnd-layout.js.org/demos/column-layout)..
 
 ### Installation
 
@@ -52,14 +52,16 @@ export function GettingStartSample() {
 }
 ```
 
+<GettingStartSample />
+
 ### API Reference
 
 #### DndLayoutProps
 
 | Property | Description | Type |
 | :--- | :--- | :--- |
-| <span style="color:red">*</span>layout | Layout store instance created by `useLayout`, used to update layout. | `ILayoutStore<T extends LayoutItem>` |
-| <span style="color:red">*</span>itemRender | Renders a single item node. | `(item: T) => React.ReactNode` |
+| <span style={{color: "red"}}>*</span>layout | Layout store instance created by `useLayout`, used to update layout. | `ILayoutStore<T extends LayoutItem>` |
+| <span style={{color: "red"}}>*</span>itemRender | Renders a single item node. | `(item: T) => React.ReactNode` |
 | className | Class name for the root container. | `string` |
 | style | Style for the root container. | `React.CSSProperties` |
 | layoutConfig | Layout render options (e.g. `gap`, fit container width/height to content). | `LayoutConfig` |

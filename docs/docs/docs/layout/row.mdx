@@ -1,0 +1,82 @@
+---
+sidebar_position: 2
+sidebar_label: Row Layout
+title: Row Layout
+---
+import { RowSample } from "@site/src/components/docs/row";
+
+# Row Layout
+
+Row layout applies to fixed-height containers, positioning items in a row-based flow from top to bottom and left to right.
+
+### Quick Start
+
+```tsx
+import { createRowLayoutAlgorithm, DndLayout, useLayout } from "dnd-layout";
+
+export function RowSample() {
+    const layout = useLayout(() => {
+        return {
+            algorithm: createRowLayoutAlgorithm({ rows: 6 }),
+            initialItems: [
+                { id: "1", row: 0, rowSpan: 1, width: 200 },
+                { id: "2", row: 1, rowSpan: 1, width: 200 },
+                { id: "3", row: 2, rowSpan: 1, width: 200 },
+                { id: "4", row: 3, rowSpan: 1, width: 200 },
+                { id: "5", row: 4, rowSpan: 1, width: 200 },
+                { id: "6", row: 5, rowSpan: 1, width: 200 },
+                { id: "7", row: 0, rowSpan: 1, width: 200 },
+                { id: "8", row: 1, rowSpan: 1, width: 200 },
+                { id: "9", row: 2, rowSpan: 1, width: 200 },
+                { id: "10", row: 3, rowSpan: 1, width: 200 },
+                { id: "11", row: 4, rowSpan: 1, width: 200 },
+                { id: "12", row: 5, rowSpan: 1, width: 200 },
+                { id: "13", row: 5, rowSpan: 1, width: 200 },
+            ],
+        };
+    });
+    return (
+        <DndLayout
+            className="common-layout"
+            style={{
+                height: 600,
+            }}
+            layout={layout}
+            layoutConfig={{
+                containerFitContentWidth: true,
+            }}
+            itemRender={(item) => {
+                return (
+                    <div
+                        className="common-layout-item"
+                        style={{
+                            width: 200,
+                        }}
+                    >
+                        {item.id}
+                    </div>
+                );
+            }}
+        />
+    );
+}
+```
+
+<RowSample />
+
+### API Reference
+
+#### RowLayoutConfig
+
+| Property | Description | Type |
+| :--- | :--- | :--- |
+| rows | Total number of rows in the layout; must be a positive integer. | `number` |
+
+#### RowLayoutItem
+
+| Property | Description | Type |
+| :--- | :--- | :--- |
+| id | Unique and stable item identifier used for rendering. | `string` |
+| row | Zero-based start row index where the item is placed. | `number` |
+| rowSpan | Number of rows the item spans; clamped to a valid range during layout. | `number` |
+| width | Preferred item width in pixels (used when measured size is not available).  | `number` |

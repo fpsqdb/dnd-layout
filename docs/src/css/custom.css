@@ -1,0 +1,86 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+    --ifm-color-primary: #b30000;
+    --ifm-color-primary-dark: #a10000;
+    --ifm-color-primary-darker: #980000;
+    --ifm-color-primary-darkest: #7d0000;
+    --ifm-color-primary-light: #c50000;
+    --ifm-color-primary-lighter: #ce0000;
+    --ifm-color-primary-lightest: #e90000;
+    --ifm-code-font-size: 95%;
+    --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+    --code-run-block-bg: #ffffff;
+    --dnd-layout-item-bg: #f5f5f5;
+    --dnd-layout-item-border-color: #dcdcdc;
+    --dnd-layout-item-border-color-hover: #9c9c9c;
+    --btn-bg: #ffffff;
+    --btn-border-color: #dcdcdc;
+    --btn-border-color-hover: #7e0000;
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme="dark"] {
+    --ifm-color-primary: #ff9494;
+    --ifm-color-primary-dark: #ff6c6c;
+    --ifm-color-primary-darker: #ff5858;
+    --ifm-color-primary-darkest: #ff1b1b;
+    --ifm-color-primary-light: #ffbcbc;
+    --ifm-color-primary-lighter: #ffd0d0;
+    --ifm-color-primary-lightest: #ffffff;
+    --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+    --code-run-block-bg: #3b3c42;
+    --dnd-layout-item-bg: #3b3b3b;
+    --dnd-layout-item-border-color: #585858;
+    --dnd-layout-item-border-color-hover: #9f9f9f;
+    --btn-bg: #3b3b3b;
+    --btn-border-color: #646464;
+    --btn-border-color-hover: #980000;
+}
+
+.code-run-block {
+    margin-block: 24px;
+    border-radius: 6px;
+    padding: 12px;
+    background-color: var(--code-run-block-bg);
+    box-shadow:
+        0px 0.8px 2px rgba(0, 0, 0, 0.032),
+        0px 2.7px 6.7px rgba(0, 0, 0, 0.048),
+        0px 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.code-block-red-line {
+    background-color: #ff000020;
+    display: block;
+    margin: 0 calc(-1 * var(--ifm-pre-padding));
+    padding: 0 var(--ifm-pre-padding);
+}
+
+.code-block-green-line {
+    background-color: #00ff8020;
+    display: block;
+    margin: 0 calc(-1 * var(--ifm-pre-padding));
+    padding: 0 var(--ifm-pre-padding);
+}
+
+.pagination-nav {
+    display: none;
+}
+
+.dnd-button {
+    cursor: pointer;
+    height: 32px;
+    border-radius: 4px;
+    padding: 0 12px;
+    background-color: var(--btn-bg);
+    border: 1px solid var(--btn-border-color);
+}
+
+.dnd-button:hover {
+    border-color: var(--btn-border-color-hover);
+}

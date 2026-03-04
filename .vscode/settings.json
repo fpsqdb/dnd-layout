@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "**/api-extractor.json": "jsonc",
+        "**/tsdoc-metadata.json": "jsonc"
+    },
+    "cSpell.words": [
+        "fpsqdb",
+        "Infima",
+        "Relayout"
+    ]
+}
