@@ -7,7 +7,7 @@ import { themes as prismThemes } from "prism-react-renderer";
 
 const config: Config = {
     title: "dnd-layout",
-    tagline: "A draggable and droppable layout for React.",
+    tagline: "A drag-and-drop layout system for React.",
 
     // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
     future: {
@@ -23,7 +23,7 @@ const config: Config = {
     // GitHub pages deployment config.
     // If you aren't using GitHub pages, you don't need these.
     organizationName: "fpsqdb", // Usually your GitHub org/user name.
-    projectName: "dnd-layout-docs", // Usually your repo name.
+    projectName: "dnd-layout", // Usually your repo name.
     trailingSlash: false,
 
     onBrokenLinks: "throw",
@@ -46,7 +46,7 @@ const config: Config = {
                     // Please change this to your repo.
                     // Remove this to remove the "edit this page" links.
                     editUrl:
-                        "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+                        "https://github.com/fpsqdb/dnd-layout/tree/main/docs/",
                 },
                 theme: {
                     customCss: "./src/css/custom.css",

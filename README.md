@@ -6,7 +6,7 @@
 ![node](https://img.shields.io/node/v/dnd-layout) 
 
 Dnd-Layout is a drag-and-drop layout system that automatically adjusts its positioning based on changes in item size.
-[Docs](https://dnd-layout.js.org) | [Demos](https://dnd-layout.js.org/demos/column-layout)..
+[Docs](https://dnd-layout.js.org) | [Demos](https://dnd-layout.js.org/demos/column-layout).
 
 ### Installation
 

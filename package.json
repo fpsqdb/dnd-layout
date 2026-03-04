@@ -1,6 +1,6 @@
 {
-    "name": "dnd-layout",
-    "version": "0.0.1",
+    "name": "dnd-layout-project",
+    "version": "0.1.0",
     "description": "A drag-and-drop layout system for React.",
     "license": "MIT",
     "author": "",
@@ -9,6 +9,7 @@
     "scripts": {
         "start": "npm run start --workspace=docs",
         "lint": "npm run lint --workspace=lib",
+        "build:docs": "npm run build --workspace=docs",
         "build:lib": "npm run build --workspace=lib",
         "test": "vitest run --project lib-tests",
         "test:coverage": "vitest run --coverage --project lib-tests"
