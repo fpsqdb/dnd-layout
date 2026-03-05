@@ -1,6 +1,6 @@
 {
     "name": "dnd-layout",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "description": "A drag-and-drop layout system for React.",
     "license": "MIT",
     "author": "fpsqdb",
