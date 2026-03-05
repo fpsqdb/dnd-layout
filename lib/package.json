@@ -16,6 +16,7 @@
         "node": ">=20"
     },
     "keywords": [
+        "dnd",
         "drag",
         "drop",
         "layout",
