@@ -10,7 +10,7 @@
     "types": "./esm/index.d.ts",
     "repository": {
         "type": "git",
-        "url": "https://github.com/fpsqdb/dnd-layout.git"
+        "url": "git+https://github.com/fpsqdb/dnd-layout.git"
     },
     "engines": {
         "node": ">=20"
