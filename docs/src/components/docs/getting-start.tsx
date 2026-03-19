@@ -19,9 +19,6 @@ export function GettingStartSample() {
         <DndLayout
             className="common-layout"
             layout={layout}
-            layoutConfig={{
-                containerFitContentHeight: true,
-            }}
             itemRender={(item) => {
                 return (
                     <div

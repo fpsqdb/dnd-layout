@@ -43,9 +43,6 @@ This demo shows how to restrict dragging within the container. Items cannot be m
             <DndLayout
                 className="common-layout"
                 layout={layout}
-                layoutConfig={{
-                    containerFitContentHeight: true,
-                }}
                 constraints={[containerConstraint()]}
                 itemRender={(item) => {
                     return (

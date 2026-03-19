@@ -24,7 +24,7 @@ export type LayoutItem = {
 
 export type MeasuredLayoutItem<T extends LayoutItem> = {
     /**
-     * Runtime measured size, if available. 
+     * Runtime measured size, if available.
      */
     size?: Size;
 } & T;
@@ -65,14 +65,6 @@ export type PointerOffset = {
 };
 
 export type LayoutConfig = {
-    /**
-     * If true, container height follows laid-out content height. Default: false.
-     */
-    containerFitContentHeight?: boolean;
-    /**
-     * If true, container width follows laid-out content width. Default: false.
-     */
-    containerFitContentWidth?: boolean;
     /**
      * Item gap: uniform number or `[horizontal, vertical]`.
      */
@@ -115,8 +107,8 @@ export type ConstraintContext = {
     pointer: Pick<PointerEvent, "clientX" | "clientY">;
     /**
      * Converts a global position to container-local coordinates.
-     * @param globalPosition 
-     * @returns 
+     * @param globalPosition
+     * @returns
      */
     globalPositionToLocalPosition: (globalPosition: Position) => Position;
 };
@@ -124,8 +116,8 @@ export type ConstraintContext = {
 export interface Constraint {
     /**
      * Returns the constrained local position.
-     * @param context 
-     * @returns 
+     * @param context
+     * @returns
      */
     constrain: (context: ConstraintContext) => Position;
 }
@@ -147,6 +139,15 @@ export type MoveContext<T extends LayoutItem> = {
  */
 export type RelayoutTrigger = "width" | "height" | "both";
 
+/**
+ * How the container should fit its content size.
+ * - `"width"`: Container adjusts to fit content width
+ * - `"height"`: Container adjusts to fit content height
+ * - `"both"`: Container adjusts to fit both width and height
+ * - `"none"`: Container does not adjust to fit content
+ */
+export type ContentFitMode = "width" | "height" | "both" | "none";
+
 export interface LayoutAlgorithm<T extends LayoutItem> {
     /**
      * Class name applied to layout root for algorithm-specific styles.
@@ -161,18 +162,22 @@ export interface LayoutAlgorithm<T extends LayoutItem> {
      */
     readonly itemTrigger: RelayoutTrigger;
     /**
+     * How the container should fit its content size.
+     */
+    readonly contentFitMode: ContentFitMode;
+    /**
      * Computes positioned render items from source items and config.
-     * @param items 
-     * @param config 
-     * @returns 
+     * @param items
+     * @param config
+     * @returns
      */
     layout: (items: MeasuredLayoutItem<T>[], config: LayoutRenderConfig) => RenderItem<MeasuredLayoutItem<T>>[];
     /**
      * Computes reordered items while moving; return `false` for no change.
-     * @param items 
-     * @param config 
-     * @param context 
-     * @returns 
+     * @param items
+     * @param config
+     * @param context
+     * @returns
      */
     move: (
         items: RenderItem<MeasuredLayoutItem<T>>[],
@@ -181,8 +186,8 @@ export interface LayoutAlgorithm<T extends LayoutItem> {
     ) => MeasuredLayoutItem<T>[] | false;
     /**
      * Serializes a render item.
-     * @param item 
-     * @returns 
+     * @param item
+     * @returns
      */
     serialize: (item: RenderItem<MeasuredLayoutItem<T>>) => T;
 }
@@ -190,14 +195,14 @@ export interface LayoutAlgorithm<T extends LayoutItem> {
 export interface ILayoutStore<T extends LayoutItem> {
     /**
      * Replaces current layout algorithm.
-     * @param layoutAlgorithm 
-     * @returns 
+     * @param layoutAlgorithm
+     * @returns
      */
     setLayoutAlgorithm: (layoutAlgorithm: LayoutAlgorithm<T>) => void;
     /**
      * Replaces current item list.
-     * @param items 
-     * @returns 
+     * @param items
+     * @returns
      */
     setItems: (items: T[]) => void;
 }

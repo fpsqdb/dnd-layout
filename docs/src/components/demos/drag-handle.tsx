@@ -44,9 +44,6 @@ export function Sample() {
         <DndLayout
             className="common-layout"
             layout={layout}
-            layoutConfig={{
-                containerFitContentHeight: true,
-            }}
             dragConfig={{
                 draggableSelector: ".drag-handle",
             }}

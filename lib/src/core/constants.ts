@@ -6,8 +6,6 @@ export const DEFAULT_LAYOUT_GAP: [number, number] = [12, 12];
 
 export const DEFAULT_LAYOUT_CONFIG: LayoutConfig = {
     gap: DEFAULT_LAYOUT_GAP,
-    containerFitContentHeight: false,
-    containerFitContentWidth: false,
 };
 
 export const DEFAULT_LAYOUT_RENDER_CONFIG: LayoutRenderConfig = {

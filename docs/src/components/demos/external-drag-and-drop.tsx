@@ -115,9 +115,6 @@ export function Sample() {
             <DndLayout
                 className="common-layout"
                 layout={layout}
-                layoutConfig={{
-                    containerFitContentHeight: true,
-                }}
                 itemRender={itemRender}
                 onDragEnter={onDragEnter}
                 onDrop={onDrop}

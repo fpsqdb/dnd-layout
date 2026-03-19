@@ -1,4 +1,11 @@
-import type { LayoutAlgorithm, LayoutItem, MeasuredLayoutItem, RelayoutTrigger, RenderItem } from "../core/types";
+import type {
+    ContentFitMode,
+    LayoutAlgorithm,
+    LayoutItem,
+    MeasuredLayoutItem,
+    RelayoutTrigger,
+    RenderItem,
+} from "../core/types";
 import { isIntersecting, validatePositiveInteger, validateSpan } from "../core/utils";
 
 const DEFAULT_LAYOUT_ROWS = 3;
@@ -40,6 +47,10 @@ class RowLayoutAlgorithm implements LayoutAlgorithm<RowLayoutItem> {
     }
 
     get itemTrigger(): RelayoutTrigger {
+        return "width";
+    }
+
+    get contentFitMode(): ContentFitMode {
         return "width";
     }
 

@@ -21,7 +21,7 @@ import { DndStyle } from "./style";
 
 export type DndLayoutProps<T extends LayoutItem> = {
     /**
-     * Layout store instance created by `useLayout`, used to update layout. 
+     * Layout store instance created by `useLayout`, used to update layout.
      */
     layout: ILayoutStore<T>;
     /**
@@ -38,34 +38,34 @@ export type DndLayoutProps<T extends LayoutItem> = {
     constraints?: Constraint[];
     /**
      * Renders a single item node.
-     * @param item 
-     * @returns 
+     * @param item
+     * @returns
      */
     itemRender: (item: T) => React.ReactNode;
     /**
-     * Custom placeholder renderer shown while dragging or external dropping. 
-     * @param item 
-     * @returns 
+     * Custom placeholder renderer shown while dragging or external dropping.
+     * @param item
+     * @returns
      */
     placeholderRender?: (item: T) => React.ReactNode;
     /**
      * Called after layout changes.
      * @param items Returns serialized items
-     * @returns 
+     * @returns
      */
     onLayoutChange?: (items: T[]) => void;
     /**
-     * Called when external drag enters the container. Return a `T` to accept/insert a temporary item, or `false` to reject. 
-     * @param event 
-     * @param id 
-     * @returns 
+     * Called when external drag enters the container. Return a `T` to accept/insert a temporary item, or `false` to reject.
+     * @param event
+     * @param id
+     * @returns
      */
     onDragEnter?: (event: React.DragEvent, id: string) => T | false;
     /**
      * Called when external drop happens. Return final `T` to confirm, or `false` to cancel and remove the temporary item.
-     * @param event 
-     * @param item 
-     * @returns 
+     * @param event
+     * @param item
+     * @returns
      */
     onDrop?: (event: React.DragEvent, item: T) => T | false;
     /**
@@ -214,10 +214,11 @@ export function DndLayout<T extends LayoutItem>(props: DndLayoutProps<T>) {
     const getStyle = (): React.CSSProperties => {
         const sizeStyle: React.CSSProperties = {};
         if (renderItems.length > 0) {
-            if (layoutConfig?.containerFitContentHeight === true) {
+            const contentFitMode = layoutStore.getLayoutAlgorithm().contentFitMode;
+            if (contentFitMode === "height" || contentFitMode === "both") {
                 sizeStyle.height = containerSize.height;
             }
-            if (layoutConfig?.containerFitContentWidth === true) {
+            if (contentFitMode === "width" || contentFitMode === "both") {
                 sizeStyle.width = containerSize.width;
             }
         }

@@ -29,9 +29,6 @@ export function RowSample() {
                 height: 600,
             }}
             layout={layout}
-            layoutConfig={{
-                containerFitContentWidth: true,
-            }}
             itemRender={(item) => {
                 return (
                     <div

@@ -30,14 +30,6 @@ describe("constants", () => {
         it("should have gap property", () => {
             expect(DEFAULT_LAYOUT_CONFIG.gap).toEqual(DEFAULT_LAYOUT_GAP);
         });
-
-        it("should have containerFitContentHeight set to false", () => {
-            expect(DEFAULT_LAYOUT_CONFIG.containerFitContentHeight).toBe(false);
-        });
-
-        it("should have containerFitContentWidth set to false", () => {
-            expect(DEFAULT_LAYOUT_CONFIG.containerFitContentWidth).toBe(false);
-        });
     });
 
     describe("DEFAULT_LAYOUT_RENDER_CONFIG", () => {

@@ -240,27 +240,10 @@ describe("DndLayout Component with row layout", () => {
         expect(itemElement.style.translate).toBe("0px 137px");
     });
 
-    it("should handle fit content height configuration", async () => {
-        const { container } = await render(
-            <MockRowLayoutComponent
-                layoutConfig={{
-                    containerFitContentHeight: true,
-                    gap: [10, 10],
-                }}
-            />,
-        );
-
-        await new Promise((resolve) => setTimeout(resolve, 200));
-
-        const layoutElement = container.querySelector(".dnd-layout") as HTMLElement;
-        expect(layoutElement.style.height).toBe("800px");
-    });
-
     it("should handle fit content width configuration", async () => {
         const { container } = await render(
             <MockRowLayoutComponent
                 layoutConfig={{
-                    containerFitContentWidth: true,
                     gap: [10, 10],
                 }}
             />,
@@ -273,13 +256,7 @@ describe("DndLayout Component with row layout", () => {
     });
 
     it("should not start drag when mouse down target is not layout item", async () => {
-        const { container } = await render(
-            <MockRowLayoutComponent
-                layoutConfig={{
-                    containerFitContentWidth: true,
-                }}
-            />,
-        );
+        const { container } = await render(<MockRowLayoutComponent />);
 
         await new Promise((resolve) => setTimeout(resolve, 100));
         await mouse.move(400, 600);
@@ -295,13 +272,7 @@ describe("DndLayout Component with row layout", () => {
     });
 
     it("should not start drag when mouse down target has no layout_item_id", async () => {
-        const { container } = await render(
-            <MockRowLayoutComponent
-                layoutConfig={{
-                    containerFitContentWidth: true,
-                }}
-            />,
-        );
+        const { container } = await render(<MockRowLayoutComponent />);
 
         await new Promise((resolve) => setTimeout(resolve, 100));
         const itemElement = container.querySelector(`[data-layout_item_id="item-1"]`) as HTMLElement;
@@ -319,13 +290,7 @@ describe("DndLayout Component with row layout", () => {
     });
 
     it("should not start drag when mouse down target's layout_item_id is not valid", async () => {
-        const { container } = await render(
-            <MockRowLayoutComponent
-                layoutConfig={{
-                    containerFitContentWidth: true,
-                }}
-            />,
-        );
+        const { container } = await render(<MockRowLayoutComponent />);
 
         await new Promise((resolve) => setTimeout(resolve, 100));
         const itemElement = container.querySelector(`[data-layout_item_id="item-1"]`) as HTMLElement;
@@ -363,12 +328,7 @@ describe("DndLayout Component with row layout", () => {
             );
         }
         const { container } = await render(
-            <MockRowLayoutComponent
-                itemRender={(item) => <MockRowItemRender2 item={item} />}
-                layoutConfig={{
-                    containerFitContentWidth: true,
-                }}
-            />,
+            <MockRowLayoutComponent itemRender={(item) => <MockRowItemRender2 item={item} />} />,
         );
 
         await new Promise((resolve) => setTimeout(resolve, 100));
@@ -416,9 +376,6 @@ describe("DndLayout Component with row layout", () => {
                             flexGrow: 1,
                         }}
                         layout={layout}
-                        layoutConfig={{
-                            containerFitContentWidth: true,
-                        }}
                         itemRender={defaultItemRender}
                     />
                 </div>
@@ -575,7 +532,7 @@ describe("DndLayout Component with row layout", () => {
         await mouse.up();
     });
 
-    it("should handle external drag enter", async () => {
+    it("should handle external drag enter and leave", async () => {
         const onDragEnter = vi.fn((_e: React.DragEvent, id: string) => {
             return {
                 id,
@@ -597,10 +554,17 @@ describe("DndLayout Component with row layout", () => {
         expect(onDragEnter).toHaveBeenCalledTimes(1);
         await new Promise((resolve) => setTimeout(resolve, 100));
 
-        const placeholder = container.querySelector(".dnd-layout-placeholder") as HTMLElement;
+        let placeholder = container.querySelector(".dnd-layout-placeholder") as HTMLElement;
         expect(placeholder).toBeInTheDocument();
-        const layoutElement = container.querySelector(".dnd-layout") as HTMLElement;
+        let layoutElement = container.querySelector(".dnd-layout") as HTMLElement;
         expect(layoutElement).toHaveClass("dnd-layout-dropping");
+        await mouse.move(0, 0);
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        placeholder = container.querySelector(".dnd-layout-placeholder") as HTMLElement;
+        expect(placeholder).not.toBeInTheDocument();
+        layoutElement = container.querySelector(".dnd-layout") as HTMLElement;
+        expect(layoutElement).not.toHaveClass("dnd-layout-dropping");
+
         await mouse.up();
         await new Promise((resolve) => setTimeout(resolve, 400));
     });

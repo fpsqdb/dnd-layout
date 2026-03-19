@@ -24,9 +24,6 @@ export function Sample() {
                 width: 300,
             }}
             layout={layout}
-            layoutConfig={{
-                containerFitContentHeight: true,
-            }}
             constraints={[verticalAxisConstraint()]}
             itemRender={(item) => {
                 return (

@@ -1,11 +1,18 @@
-import type { LayoutAlgorithm, LayoutItem, MeasuredLayoutItem, RelayoutTrigger, RenderItem } from "../core/types";
+import type {
+    ContentFitMode,
+    LayoutAlgorithm,
+    LayoutItem,
+    MeasuredLayoutItem,
+    RelayoutTrigger,
+    RenderItem,
+} from "../core/types";
 import { isIntersecting, validatePositiveInteger, validateSpan } from "../core/utils";
 
 const DEFAULT_LAYOUT_COLUMNS = 3;
 
 export interface ColumnLayoutItem extends LayoutItem {
     /**
-     * Zero-based start column index where the item is placed. 
+     * Zero-based start column index where the item is placed.
      */
     column: number;
     /**
@@ -13,7 +20,7 @@ export interface ColumnLayoutItem extends LayoutItem {
      */
     columnSpan: number;
     /**
-     * Preferred item height in pixels (used when measured size is not available). 
+     * Preferred item height in pixels (used when measured size is not available).
      */
     height: number;
 }
@@ -40,6 +47,10 @@ class ColumnLayoutAlgorithm implements LayoutAlgorithm<ColumnLayoutItem> {
     }
 
     get itemTrigger(): RelayoutTrigger {
+        return "height";
+    }
+
+    get contentFitMode(): ContentFitMode {
         return "height";
     }
 

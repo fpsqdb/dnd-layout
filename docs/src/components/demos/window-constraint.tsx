@@ -22,9 +22,6 @@ export function Sample() {
         <DndLayout
             className="common-layout"
             layout={layout}
-            layoutConfig={{
-                containerFitContentHeight: true,
-            }}
             constraints={[windowConstraint()]}
             itemRender={(item) => {
                 return (

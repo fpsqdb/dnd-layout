@@ -50,9 +50,6 @@ export function Sample() {
             <DndLayout
                 className="common-layout"
                 layout={layout}
-                layoutConfig={{
-                    containerFitContentHeight: true,
-                }}
                 itemRender={(item) => {
                     return (
                         <div
