@@ -62,7 +62,7 @@ export function GettingStartSample() {
 | <span style="color:red">*</span>itemRender | Renders a single item node. | `(item: T) => React.ReactNode` |
 | className | Class name for the root container. | `string` |
 | style | Style for the root container. | `React.CSSProperties` |
-| layoutConfig | Layout render options (e.g. `gap`, fit container width/height to content). | `LayoutConfig` |
+| layoutConfig | Layout render options (e.g. `gap`). | `LayoutConfig` |
 | dragConfig | Drag behavior config. Set `enable=false` to disable dragging; use `draggableSelector` as a drag handle filter. | `DragConfig` |
 | constraints | Drag constraints applied during movement to clamp/adjust positions. | `Constraint[]` |
 | placeholderRender | Custom placeholder renderer shown while dragging or external dropping. | `(item: T) => React.ReactNode` |
