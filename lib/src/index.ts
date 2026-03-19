@@ -11,6 +11,7 @@ export type {
     BoundedConstraintOption,
     Constraint,
     ConstraintContext,
+    ContentFitMode,
     DragConfig,
     ILayoutStore,
     LayoutAlgorithm,
