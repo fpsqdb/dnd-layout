@@ -1,7 +1,14 @@
 import { type ColumnLayoutItem, createColumnLayoutAlgorithm, DndLayout, useLayout } from "dnd-layout";
 import "./common-layout.css";
+import { useRef } from "react";
+
+type DraggingItemData = {
+    type: "accept" | "reject";
+    height: number;
+};
 
 export function Sample() {
+    const draggingItemDataRef = useRef<DraggingItemData>(null);
     const layout = useLayout(() => {
         return {
             algorithm: createColumnLayoutAlgorithm(),
@@ -31,41 +38,47 @@ export function Sample() {
         );
     };
 
-    const onDragEnter = (e: React.DragEvent, id: string) => {
-        if (!e.dataTransfer.types.includes("application/drag-item")) {
+    const onDragEnter = (_e: React.DragEvent, id: string) => {
+        const data = draggingItemDataRef.current;
+        if (!data) {
             return false;
-        }
-        let height = 140;
-        if (e.dataTransfer.types.includes("application/drag-item-height-2")) {
-            height = 280;
         }
         const element: ColumnLayoutItem = {
             id,
             column: -1,
             columnSpan: 1,
-            height,
+            height: data.height,
         };
         return element;
     };
 
-    const onDrop = (e: React.DragEvent, item: ColumnLayoutItem) => {
-        if (!e.dataTransfer.types.includes("application/drag-item")) {
+    const onDrop = (_e: React.DragEvent, item: ColumnLayoutItem) => {
+        const data = draggingItemDataRef.current;
+        if (!data) {
             return false;
         }
-        const data = JSON.parse(e.dataTransfer.getData("application/drag-item"));
         if (data.type === "accept") {
             return item;
         }
         return false;
     };
 
-    const onDragStart1 = (e: React.DragEvent) => {
-        e.dataTransfer.setData("application/drag-item", JSON.stringify({ type: "accept" }));
+    const onDragStart1 = () => {
+        draggingItemDataRef.current = {
+            type: "accept",
+            height: 140,
+        };
     };
 
-    const onDragStart2 = (e: React.DragEvent) => {
-        e.dataTransfer.setData("application/drag-item", JSON.stringify({ type: "reject" }));
-        e.dataTransfer.setData("application/drag-item-height-2", "");
+    const onDragStart2 = () => {
+        draggingItemDataRef.current = {
+            type: "reject",
+            height: 280,
+        };
+    };
+
+    const onDragStart3 = () => {
+        draggingItemDataRef.current = null;
     };
 
     return (
@@ -81,6 +94,7 @@ export function Sample() {
                     role="none"
                     draggable={true}
                     style={{
+                        touchAction: "none",
                         border: "1px solid var(--dnd-layout-item-border-color)",
                         padding: 12,
                         borderRadius: 4,
@@ -93,6 +107,7 @@ export function Sample() {
                     role="none"
                     draggable={true}
                     style={{
+                        touchAction: "none",
                         border: "1px solid var(--dnd-layout-item-border-color)",
                         padding: 12,
                         borderRadius: 4,
@@ -102,12 +117,15 @@ export function Sample() {
                     Droppable Item (Reject)
                 </div>
                 <div
+                    role="none"
                     draggable={true}
                     style={{
+                        touchAction: "none",
                         border: "1px solid var(--dnd-layout-item-border-color)",
                         padding: 12,
                         borderRadius: 4,
                     }}
+                    onDragStart={onDragStart3}
                 >
                     Droppable Item (Now Allowed)
                 </div>
