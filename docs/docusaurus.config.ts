@@ -45,8 +45,7 @@ const config: Config = {
                     sidebarCollapsible: false,
                     // Please change this to your repo.
                     // Remove this to remove the "edit this page" links.
-                    editUrl:
-                        "https://github.com/fpsqdb/dnd-layout/tree/main/docs/",
+                    editUrl: "https://github.com/fpsqdb/dnd-layout/tree/main/docs/",
                 },
                 theme: {
                     customCss: "./src/css/custom.css",
@@ -56,6 +55,12 @@ const config: Config = {
     ],
 
     themeConfig: {
+        metadata: [
+            {
+                name: "viewport",
+                content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
+            },
+        ],
         // Replace with your project's social card
         image: "img/docusaurus-social-card.jpg",
         colorMode: {

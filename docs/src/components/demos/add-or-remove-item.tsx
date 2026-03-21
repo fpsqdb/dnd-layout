@@ -65,6 +65,7 @@ export function Sample() {
             <div
                 style={{
                     display: "flex",
+                    flexWrap: "wrap",
                     gap: 12,
                     marginBottom: 12,
                 }}
