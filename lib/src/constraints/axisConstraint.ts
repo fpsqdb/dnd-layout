@@ -1,5 +1,9 @@
 import type { Constraint } from "../core/types";
 
+/**
+ * Restricts movement to the vertical axis only (up and down).
+ * Prevents any horizontal displacement.
+ */
 export function verticalAxisConstraint(): Constraint {
     return {
         constrain: (context) => {
@@ -12,6 +16,10 @@ export function verticalAxisConstraint(): Constraint {
     };
 }
 
+/**
+ * Restricts movement to the horizontal axis only (left and right).
+ * Prevents any vertical displacement.
+ */
 export function horizontalAxisConstraint(): Constraint {
     return {
         constrain: (context) => {

@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type {
+    ContentFitMode,
     LayoutAlgorithm,
     LayoutItem,
     LayoutRenderConfig,
@@ -13,6 +14,7 @@ import { LayoutStore } from "../layoutStore";
 class MockLayoutAlgorithm implements LayoutAlgorithm<MockLayoutItem> {
     public containerTrigger: RelayoutTrigger;
     public itemTrigger: RelayoutTrigger;
+    public contentFitMode: ContentFitMode = "none";
 
     constructor(containerTrigger: RelayoutTrigger = "width", itemTrigger: RelayoutTrigger = "height") {
         this.containerTrigger = containerTrigger;

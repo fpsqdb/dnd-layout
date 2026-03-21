@@ -1,17 +1,50 @@
+/**
+ * Represents the dimensions of an element.
+ */
 export type Size = {
+    /**
+     * Width in pixels.
+     */
     width: number;
+    /**
+     * Height in pixels.
+     */
     height: number;
 };
 
+/**
+ * Represents a rectangular area, typically used for bounding boxes.
+ */
 export type Rectangle = {
+    /**
+     * The x-coordinate (left) relative to the reference container.
+     */
     left: number;
+    /**
+     * The y-coordinate (top) relative to the reference container.
+     */
     top: number;
+    /**
+     * The width of the rectangle.
+     */
     width: number;
+    /**
+     * The height of the rectangle.
+     */
     height: number;
 };
 
+/**
+ * The available size within the container for layout purposes.
+ */
 export type LayoutSize = {
+    /**
+     * The available width of the container.
+     */
     layoutWidth: number;
+    /**
+     * The available height of the container.
+     */
     layoutHeight: number;
 };
 
@@ -30,13 +63,31 @@ export type MeasuredLayoutItem<T extends LayoutItem> = {
 } & T;
 
 export type RenderItem<T extends LayoutItem> = {
+    /**
+     * The x-coordinate (left) relative to the reference container.
+     */
     left: number;
+    /**
+     * The y-coordinate (top) relative to the reference container.
+     */
     top: number;
+    /**
+     * The width of the item.
+     */
     width: number;
+    /**
+     * The height of the item.
+     */
     height: number;
+    /**
+     * LayoutItem
+     */
     data: T;
 };
 
+/**
+ * Represents the 2D coordinates (x-coordinate: left, y-coordinate: top).
+ */
 export type Position = Pick<RenderItem<LayoutItem>, "left" | "top">;
 
 export type BoxMetrics = {
@@ -87,27 +138,75 @@ export type LayoutRenderConfig = {
     gap: [horizontal: number, vertical: number];
 };
 
+/**
+ * Options to enable boundary constraints for specific sides of a container or window.
+ * When set to true, the dragged item will be prevented from moving beyond that boundary.
+ */
 export type BoundedConstraintOption = {
+    /**
+     * Enable constraint on the top edge, default: true.
+     */
     top?: boolean;
+    /**
+     * Enable constraint on the right edge, default: true.
+     */
     right?: boolean;
+    /**
+     * Enable constraint on the bottom edge, default: true.
+     */
     bottom?: boolean;
+    /**
+     * Enable constraint on the left edge, default: true.
+     */
     left?: boolean;
 };
 
 export type ConstraintContext = {
+    /**
+     * The item currently being dragged
+     */
     item: LayoutItem;
+    /**
+     * Initial position of the dragged item relative to the container at the start of the drag.
+     */
     startLocalPosition: Position;
+    /**
+     * The position of the currently dragged item relative to its container.
+     */
     localPosition: Position;
+    /**
+     * The current position of the dragged item relative to the viewport.
+     */
     globalPosition: Position;
+    /**
+     * The bounding box of the current viewport.
+     */
     windowRect: Rectangle;
+    /**
+     * The bounding box of the current item relative to its container,
+     * ignoring any scaling applied to the container or parent elements.
+     */
     itemLocalRect: Rectangle;
+    /**
+     * The bounding box of the current item relative to the viewport.
+     */
     itemGlobalRect: Rectangle;
+    /**
+     * The bounding box of the container relative to the viewport,
+     * ignoring any scaling applied to the container or parent elements.
+     */
     containerLocalRect: Rectangle;
+    /**
+     * The bounding box of the container relative to the viewport.
+     */
     containerGlobalRect: Rectangle;
+    /**
+     * The current position of the pointer.
+     */
     pointer: Pick<PointerEvent, "clientX" | "clientY">;
     /**
      * Converts a global position to container-local coordinates.
-     * @param globalPosition
+     * @param globalPosition A position relative to the viewport.
      * @returns
      */
     globalPositionToLocalPosition: (globalPosition: Position) => Position;
@@ -117,7 +216,7 @@ export interface Constraint {
     /**
      * Returns the constrained local position.
      * @param context
-     * @returns
+     * @returns The position of the currently dragged item relative to its container.
      */
     constrain: (context: ConstraintContext) => Position;
 }
@@ -131,6 +230,9 @@ export type MoveContext<T extends LayoutItem> = {
      * Index of `current` in the render list.
      */
     currentIndex: number;
+    /**
+     * The position of the currently dragged item relative to its container.
+     */
     localPosition: Position;
 };
 
@@ -195,13 +297,13 @@ export interface LayoutAlgorithm<T extends LayoutItem> {
 export interface ILayoutStore<T extends LayoutItem> {
     /**
      * Replaces current layout algorithm.
-     * @param layoutAlgorithm
+     * @param layoutAlgorithm The layout algorithm to be used.
      * @returns
      */
     setLayoutAlgorithm: (layoutAlgorithm: LayoutAlgorithm<T>) => void;
     /**
      * Replaces current item list.
-     * @param items
+     * @param items Layout items.
      * @returns
      */
     setItems: (items: T[]) => void;

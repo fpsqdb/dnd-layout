@@ -1,10 +1,12 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type {
+    ContentFitMode,
     LayoutAlgorithm,
     LayoutItem,
     LayoutRenderConfig,
     MeasuredLayoutItem,
     MoveContext,
+    RelayoutTrigger,
     RenderItem,
 } from "../../core/types";
 import { DropStore } from "../../store/dropStore";
@@ -16,8 +18,9 @@ interface MockLayoutItem extends LayoutItem {
 }
 
 class MockLayoutAlgorithm implements LayoutAlgorithm<MockLayoutItem> {
-    public containerTrigger: "width" | "height" | "both" = "width";
-    public itemTrigger: "width" | "height" | "both" = "height";
+    public containerTrigger: RelayoutTrigger = "width";
+    public itemTrigger: RelayoutTrigger = "height";
+    public contentFitMode: ContentFitMode = "none";
 
     get className(): string {
         return "mock-layout";
