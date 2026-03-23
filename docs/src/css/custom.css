@@ -43,6 +43,10 @@
     --btn-border-color-hover: #980000;
 }
 
+html {
+    scrollbar-gutter: stable;
+}
+
 .code-run-block {
     margin-block: 24px;
     border-radius: 6px;
