@@ -9,6 +9,8 @@
     "scripts": {
         "start": "npm run start --workspace=docs",
         "lint": "npm run lint --workspace=lib",
+        "typecheck:lib": "npm run typecheck --workspace=lib",
+        "typecheck:docs": "npm run typecheck --workspace=docs",
         "build:docs": "npm run build --workspace=docs",
         "build:lib": "npm run build --workspace=lib",
         "test": "vitest run --project lib-tests",
