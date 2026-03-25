@@ -14,7 +14,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  test:
     if: github.repository == 'fpsqdb/dnd-layout'
     runs-on: ubuntu-latest
     steps:
@@ -27,7 +27,7 @@ jobs:
       - run: npm run test:coverage
 
   publish-npm:
-    needs: build
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
