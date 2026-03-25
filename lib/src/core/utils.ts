@@ -105,22 +105,28 @@ export function getRenderConfig(layoutConfig: LayoutConfig, layoutSize: LayoutSi
     };
 }
 
-export function canScroll(node: HTMLElement) {
-    const style = window.getComputedStyle(node);
+export function supportScroll(node: Element) {
+    const computedStyle = window.getComputedStyle(node);
 
-    const canScrollY =
-        (style.overflowY === "auto" || style.overflowY === "scroll") && node.scrollHeight > node.clientHeight;
-    const canScrollX =
-        (style.overflowX === "auto" || style.overflowX === "scroll") && node.scrollWidth > node.clientWidth;
+    const overflowRegex = /(auto|scroll|overlay)/;
+    const properties = ["overflow", "overflowX", "overflowY"];
 
-    return canScrollY || canScrollX;
+    return properties.some((property) => {
+        const value = computedStyle[property as keyof CSSStyleDeclaration];
+        /* v8 ignore else -- @preserve */
+        if (typeof value === "string") {
+            return overflowRegex.test(value);
+        }
+        /* v8 ignore next -- @preserve */
+        return false;
+    });
 }
 
-export function getScrollParent(node: HTMLElement): HTMLElement | Window {
+export function getScrollParent(node: Element): Element | Window {
     if (!node) {
         return window;
     }
-    if (canScroll(node)) {
+    if (supportScroll(node)) {
         return node;
     }
     if (!node.parentElement) {

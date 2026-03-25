@@ -9,3 +9,4 @@
 /lib/temp
 /lib/esm
 /lib/**/__screenshots__
+/lib/.vitest-attachments

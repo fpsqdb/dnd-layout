@@ -1,5 +1,5 @@
 import { RAFThrottle } from "./rafThrottle";
-import { canScroll } from "./utils";
+import { supportScroll } from "./utils";
 
 const DEFAULT_SCROLL_THRESHOLD = 50;
 const DEFAULT_MAX_SCROLL_SPEED = 20;
@@ -27,7 +27,7 @@ type Dimension = {
 type ScrollContext = {
     direction: { x: ScrollDirection; y: ScrollDirection };
     intensity: { x: number; y: number };
-    target: HTMLElement | Window;
+    target: Element | Window;
 };
 
 export type AutoScrollerOptions = {
@@ -36,7 +36,7 @@ export type AutoScrollerOptions = {
 };
 
 export class AutoScroller {
-    #scrollChain: (HTMLElement | Window)[] = [];
+    #scrollChain: (Element | Window)[] = [];
     #threshold: number;
     #speed: number;
     #latestPointerPosition: Pick<PointerEvent, "clientX" | "clientY"> = { clientX: 0, clientY: 0 };
@@ -49,7 +49,7 @@ export class AutoScroller {
         this.#onScroll = onScroll;
     }
 
-    setTarget = (target: HTMLElement | Window): void => {
+    setTarget = (target: Element | Window): void => {
         this.#scrollChain = this.#getScrollChain(target);
     };
 
@@ -75,7 +75,7 @@ export class AutoScroller {
             if (context.target === window) {
                 window.scrollBy(scrollX, scrollY);
             } else {
-                const el = context.target as HTMLElement;
+                const el = context.target as Element;
                 el.scrollTop += scrollY;
                 el.scrollLeft += scrollX;
             }
@@ -134,15 +134,15 @@ export class AutoScroller {
         return null;
     };
 
-    #getScrollChain = (startElement: HTMLElement | Window): (HTMLElement | Window)[] => {
-        const chain: (HTMLElement | Window)[] = [];
+    #getScrollChain = (startElement: Element | Window): (Element | Window)[] => {
+        const chain: (Element | Window)[] = [];
         if (startElement instanceof Window) {
             chain.push(window);
             return chain;
         }
-        let current: HTMLElement | null = startElement;
+        let current: Element | null = startElement;
         while (current) {
-            if (canScroll(current)) {
+            if (supportScroll(current)) {
                 chain.push(current);
             }
             current = current.parentElement;
@@ -151,7 +151,7 @@ export class AutoScroller {
         return chain;
     };
 
-    #getDimensions = (target: HTMLElement | Window): Dimension => {
+    #getDimensions = (target: Element | Window): Dimension => {
         if (target instanceof Window) {
             const target = document.documentElement;
             return {

@@ -1,7 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, type MockInstance, vi } from "vitest";
 import type { LayoutConfig, LayoutItem, LayoutSize, RenderItem } from "../types";
 import {
-    canScroll,
     getContainerBoxMetrics,
     getContainerSize,
     getDistance,
@@ -13,6 +12,7 @@ import {
     isFirefox,
     isIntersecting,
     isPositiveFiniteNumber,
+    supportScroll,
     syncLayoutItems,
     validatePositiveInteger,
     validatePositiveNumber,
@@ -379,7 +379,7 @@ describe("utils", () => {
         });
     });
 
-    describe("canScroll", () => {
+    describe("supportScroll", () => {
         let element: HTMLElement;
 
         beforeEach(() => {
@@ -394,7 +394,7 @@ describe("utils", () => {
         });
 
         it("non-scrollable element should return false", () => {
-            expect(canScroll(element)).toBe(false);
+            expect(supportScroll(element)).toBe(false);
         });
 
         it("should detect vertical scroll", () => {
@@ -403,7 +403,16 @@ describe("utils", () => {
             element.style.width = "100px";
             element.innerHTML = "<div style='height: 200px;'></div>";
 
-            expect(canScroll(element)).toBe(true);
+            expect(supportScroll(element)).toBe(true);
+        });
+        
+        it("should detect vertical scroll when horizontal scroll is hidden", () => {
+            element.style.overflowX = "hidden";
+            element.style.height = "100px";
+            element.style.width = "100px";
+            element.innerHTML = "<div style='height: 200px;'></div>";
+
+            expect(supportScroll(element)).toBe(true);
         });
 
         it("should detect horizontal scroll", () => {
@@ -412,17 +421,27 @@ describe("utils", () => {
             element.style.width = "100px";
             element.innerHTML = "<div style='width: 200px;'></div>";
 
-            expect(canScroll(element)).toBe(true);
+            expect(supportScroll(element)).toBe(true);
         });
 
-        it("should ignore hidden overflow", () => {
+        it("should detect horizontal scroll when vertical scroll is hidden", () => {
             element.style.overflowY = "hidden";
             element.style.height = "100px";
             element.style.width = "100px";
             element.innerHTML = "<div style='height: 200px;'></div>";
 
-            expect(canScroll(element)).toBe(false);
+            expect(supportScroll(element)).toBe(true);
         });
+
+        it("should ignore hidden overflow", () => {
+            element.style.overflow = "hidden";
+            element.style.height = "100px";
+            element.style.width = "100px";
+            element.innerHTML = "<div style='height: 200px;'></div>";
+
+            expect(supportScroll(element)).toBe(false);
+        });
+
     });
 
     describe("getScrollParent", () => {
