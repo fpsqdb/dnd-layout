@@ -6,7 +6,7 @@ import { LayoutContext } from "../context/layoutContext";
 import { cls } from "../core/cls";
 import { DEFAULT_LAYOUT_CONFIG } from "../core/constants";
 import type { Constraint, DragConfig, ILayoutStore, LayoutConfig, LayoutItem } from "../core/types";
-import { getContainerBoxMetrics, getPointerOffset, getRenderConfig, isDeepEqual } from "../core/utils";
+import { getBoxMetrics, getPointerOffset, getRenderConfig, isDeepEqual } from "../core/utils";
 import { useIsDragging } from "../hooks/useWatchDrag";
 import { useIsDropping } from "../hooks/useWatchDrop";
 import { useWatchLayout } from "../hooks/useWatchLayout";
@@ -117,7 +117,7 @@ export function DndLayout<T extends LayoutItem>(props: DndLayoutProps<T>) {
         if (!container) {
             return;
         }
-        const containerBoxMetrics = getContainerBoxMetrics(container);
+        const containerBoxMetrics = getBoxMetrics(container);
         const renderConfig = getRenderConfig(layoutConfigRef.current ?? DEFAULT_LAYOUT_CONFIG, {
             layoutHeight: containerBoxMetrics.layoutHeight,
             layoutWidth: containerBoxMetrics.layoutWidth,

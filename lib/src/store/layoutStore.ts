@@ -7,7 +7,7 @@ import type {
     RenderItem,
     Size,
 } from "../core/types";
-import { getContainerBoxMetrics, getContainerSize, isDeepEqual, syncLayoutItems } from "../core/utils";
+import { getBoxMetrics, getContainerSize, isDeepEqual, syncLayoutItems } from "../core/utils";
 import { Store } from "./store";
 
 export type LayoutStoreValue<T extends LayoutItem> = {
@@ -205,7 +205,7 @@ export class LayoutStore<T extends LayoutItem> extends Store<LayoutStoreValue<T>
         if (this._isPendingNotify()) {
             return;
         }
-        const containerBoxMetrics = getContainerBoxMetrics(this.#container);
+        const containerBoxMetrics = getBoxMetrics(this.#container);
         const layoutItems = this.#layoutAlgorithm.layout(this.#storeValue.items, this.#config);
         if (containerBoxMetrics.paddingLeft > 0 || containerBoxMetrics.paddingTop > 0) {
             layoutItems.forEach((item) => {

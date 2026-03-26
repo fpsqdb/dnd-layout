@@ -4,12 +4,11 @@ import type {
     Constraint,
     ConstraintContext,
     LayoutItem,
-    PointerOffset,
     Position,
     Rectangle,
-    RenderItem,
+    RenderItem
 } from "../core/types";
-import { getContainerBoxMetrics, getDistance, getLayoutItemFixedOffsetParent } from "../core/utils";
+import { getBoxMetrics, getDistance, getLayoutItemFixedOffsetParent } from "../core/utils";
 import type { LayoutStore } from "../store/layoutStore";
 
 const DEFAULT_DISTANCE_THRESHOLD = 20;
@@ -30,12 +29,7 @@ export class MoveManager<T extends LayoutItem> {
         left: 0,
         top: 0,
     };
-    #pointerOffset: PointerOffset = {
-        local: { left: 0, top: 0 },
-        global: { left: 0, top: 0 },
-        scaleX: 1,
-        scaleY: 1,
-    };
+    #globalPointerOffset: Position = { left: 0, top: 0 };
     #fixedOffsetParent: { element: Element; size: BoxMetrics } | null = null;
     #container: HTMLElement | null = null;
     #containerBoxMetrics: BoxMetrics | null = null;
@@ -67,7 +61,7 @@ export class MoveManager<T extends LayoutItem> {
 
     setContainer = (container: HTMLElement): void => {
         this.#container = container;
-        this.#containerBoxMetrics = container ? getContainerBoxMetrics(container) : null;
+        this.#containerBoxMetrics = container ? getBoxMetrics(container) : null;
         this.#updateWindowResize();
     };
 
@@ -75,27 +69,27 @@ export class MoveManager<T extends LayoutItem> {
         this.#constraints = Array.isArray(constraints) ? constraints : [];
     };
 
-    startMove = (startLocalPosition: Position, pointerOffset?: PointerOffset): void => {
+    startMove = (startLocalPosition: Position, globalPointerOffset?: Position): void => {
         const container = this.#container;
         if (!container) {
             return;
         }
         this.#startLocalPosition = startLocalPosition;
-        if (pointerOffset) {
-            this.#pointerOffset = pointerOffset;
+        if (globalPointerOffset) {
+            this.#globalPointerOffset = globalPointerOffset;
         }
         const fixedOffsetParent = getLayoutItemFixedOffsetParent(container);
         if (fixedOffsetParent) {
             this.#fixedOffsetParent = {
                 element: fixedOffsetParent,
-                size: getContainerBoxMetrics(fixedOffsetParent),
+                size: getBoxMetrics(fixedOffsetParent),
             };
         } else {
             this.#fixedOffsetParent = null;
         }
 
         this.#registerListener();
-        this.#containerBoxMetrics = getContainerBoxMetrics(container);
+        this.#containerBoxMetrics = getBoxMetrics(container);
     };
 
     rafMove = (
@@ -119,12 +113,7 @@ export class MoveManager<T extends LayoutItem> {
     stopMove = (): void => {
         this.#unregisterListener();
         this.#rafThrottle.cancel();
-        this.#pointerOffset = {
-            local: { left: 0, top: 0 },
-            global: { left: 0, top: 0 },
-            scaleX: 1,
-            scaleY: 1,
-        };
+        this.#globalPointerOffset = { left: 0, top: 0 };
         this.#startLocalPosition = {
             left: 0,
             top: 0,
@@ -233,8 +222,8 @@ export class MoveManager<T extends LayoutItem> {
         constraintOffset: Position,
     ): Position => {
         const { clientX, clientY } = pointer;
-        let fixedLeft = clientX - this.#pointerOffset.global.left;
-        let fixedTop = clientY - this.#pointerOffset.global.top;
+        let fixedLeft = clientX - this.#globalPointerOffset.left;
+        let fixedTop = clientY - this.#globalPointerOffset.top;
         if (this.#fixedOffsetParent) {
             const parentRect = this.#fixedOffsetParent.element.getBoundingClientRect();
             fixedLeft = fixedLeft - parentRect.left - constraintOffset.left * this.#fixedOffsetParent.size.scaleX;
@@ -271,8 +260,8 @@ export class MoveManager<T extends LayoutItem> {
             height: originRect.height,
         };
         const globalPosition: Position = {
-            left: pointer.clientX - this.#pointerOffset.global.left,
-            top: pointer.clientY - this.#pointerOffset.global.top,
+            left: pointer.clientX - this.#globalPointerOffset.left,
+            top: pointer.clientY - this.#globalPointerOffset.top,
         };
         const itemGlobalRect: Rectangle = {
             left: globalPosition.left,
@@ -284,8 +273,8 @@ export class MoveManager<T extends LayoutItem> {
             containerLocalRect.left + containerBoxMetrics.borderLeft + containerBoxMetrics.paddingLeft;
         containerLocalRect.top =
             containerLocalRect.top + containerBoxMetrics.borderTop + containerBoxMetrics.paddingTop;
-        let localLeft = pointer.clientX - originRect.left - this.#pointerOffset.global.left;
-        let localTop = pointer.clientY - originRect.top - this.#pointerOffset.global.top;
+        let localLeft = pointer.clientX - originRect.left - this.#globalPointerOffset.left;
+        let localTop = pointer.clientY - originRect.top - this.#globalPointerOffset.top;
         if (this.#fixedOffsetParent) {
             localLeft = localLeft / this.#fixedOffsetParent.size.scaleX - containerBoxMetrics.borderLeft;
             localTop = localTop / this.#fixedOffsetParent.size.scaleY - containerBoxMetrics.borderTop;

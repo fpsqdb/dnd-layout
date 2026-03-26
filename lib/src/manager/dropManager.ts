@@ -1,4 +1,4 @@
-import type { LayoutItem, RenderItem } from "../core/types";
+import type { LayoutItem, Position, RenderItem } from "../core/types";
 import type { DropStore } from "../store/dropStore";
 import type { LayoutStore } from "../store/layoutStore";
 import { MoveManager } from "./moveManager";
@@ -158,7 +158,12 @@ export class DropManager<T extends LayoutItem> {
 
         // biome-ignore lint/style/noNonNullAssertion: <insertedItem should never be null>
         const insertedItem = renderItems.find((item) => item.data.id === droppingItem.id)!;
-        this.#moveManager.startMove(insertedItem);
+        // Set the drag offset to the center of the inserted item for a better dragging experience.
+        const globalPointerOffset: Position = {
+            left: insertedItem.width / 2,
+            top: insertedItem.height / 2,
+        };
+        this.#moveManager.startMove(insertedItem, globalPointerOffset);
 
         const moved = this.#moveManager.move(renderItems, droppingItem.id, pointer);
         if (!moved) {

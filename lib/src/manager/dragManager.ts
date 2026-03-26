@@ -142,7 +142,7 @@ export class DragManager<T extends LayoutItem> {
         this.#startPointerPosition = { clientX, clientY };
 
         if (this.#dragState.isDragging) {
-            this.#moveManager.startMove(this.#dragState.target.startLocalPosition, pointerOffset);
+            this.#moveManager.startMove(this.#dragState.target.startLocalPosition, pointerOffset.global);
         }
         this.#registerListener();
     };
@@ -165,7 +165,7 @@ export class DragManager<T extends LayoutItem> {
                 };
                 this.#moveManager.startMove(
                     draggingItemData.startLocalPosition,
-                    this.#getPointerOffsetWithDragThreshold(e, draggingItemData.pointerOffset),
+                    this.#getGlobalPointerOffsetWithDragThreshold(e, draggingItemData.pointerOffset),
                 );
             } else {
                 return;
@@ -259,20 +259,10 @@ export class DragManager<T extends LayoutItem> {
         );
     };
 
-    #getPointerOffsetWithDragThreshold = (e: PointerEvent, pointerOffset: PointerOffset): PointerOffset => {
+    #getGlobalPointerOffsetWithDragThreshold = (e: PointerEvent, pointerOffset: PointerOffset): Position => {
         return {
-            ...pointerOffset,
-            local: {
-                left:
-                    (pointerOffset.local.left + (e.clientX - this.#startPointerPosition.clientX)) /
-                    pointerOffset.scaleX,
-                top:
-                    (pointerOffset.local.top + (e.clientY - this.#startPointerPosition.clientY)) / pointerOffset.scaleY,
-            },
-            global: {
-                left: pointerOffset.global.left + (e.clientX - this.#startPointerPosition.clientX),
-                top: pointerOffset.global.top + (e.clientY - this.#startPointerPosition.clientY),
-            },
+            left: pointerOffset.global.left + (e.clientX - this.#startPointerPosition.clientX),
+            top: pointerOffset.global.top + (e.clientY - this.#startPointerPosition.clientY),
         };
     };
 

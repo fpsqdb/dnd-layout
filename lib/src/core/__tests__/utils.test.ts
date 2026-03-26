@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, type MockInstance, vi } from "vitest";
 import type { LayoutConfig, LayoutItem, LayoutSize, RenderItem } from "../types";
 import {
-    getContainerBoxMetrics,
+    getBoxMetrics,
     getContainerSize,
     getDistance,
     getLayoutItemFixedOffsetParent,
@@ -405,7 +405,7 @@ describe("utils", () => {
 
             expect(supportScroll(element)).toBe(true);
         });
-        
+
         it("should detect vertical scroll when horizontal scroll is hidden", () => {
             element.style.overflowX = "hidden";
             element.style.height = "100px";
@@ -441,7 +441,6 @@ describe("utils", () => {
 
             expect(supportScroll(element)).toBe(false);
         });
-
     });
 
     describe("getScrollParent", () => {
@@ -641,7 +640,7 @@ describe("utils", () => {
         it("should return default metrics with no styling", () => {
             container.style.width = "0px";
             container.style.height = "0px";
-            const metrics = getContainerBoxMetrics(container);
+            const metrics = getBoxMetrics(container);
             expect(metrics).toEqual({
                 borderTop: 0,
                 borderRight: 0,
@@ -665,19 +664,19 @@ describe("utils", () => {
             container.style.width = "100px";
             container.style.height = "100px";
 
-            const metrics = getContainerBoxMetrics(container);
+            const metrics = getBoxMetrics(container);
             expect(metrics.scaleX).toBe(1);
 
             container.style.scale = "1.0000000000001212";
-            const metrics2 = getContainerBoxMetrics(container);
+            const metrics2 = getBoxMetrics(container);
             expect(metrics2.scaleX).toBe(1);
 
             container.style.scale = "0.9999999999999999";
-            const metrics3 = getContainerBoxMetrics(container);
+            const metrics3 = getBoxMetrics(container);
             expect(metrics3.scaleX).toBe(1);
 
             container.style.scale = "1.00012123";
-            const metrics4 = getContainerBoxMetrics(container);
+            const metrics4 = getBoxMetrics(container);
             expect(metrics4.scaleX).toBe(1.0001);
         });
 
@@ -686,14 +685,14 @@ describe("utils", () => {
             container.style.height = "100px";
 
             container.style.scale = "0.5";
-            const metrics = getContainerBoxMetrics(container);
+            const metrics = getBoxMetrics(container);
             expect(metrics.scaleY).toBe(0.5);
         });
 
         it("should handle zero offsetWidth for none scale", () => {
             container.style.width = "0px";
             container.style.height = "100px";
-            const metrics = getContainerBoxMetrics(container);
+            const metrics = getBoxMetrics(container);
             expect(metrics.scaleX).toBe(1);
             expect(metrics.scaleY).toBe(1);
         });
@@ -702,7 +701,7 @@ describe("utils", () => {
             container.style.width = "0px";
             container.style.height = "100px";
             container.style.scale = "0.5";
-            const metrics = getContainerBoxMetrics(container);
+            const metrics = getBoxMetrics(container);
             expect(metrics.scaleX).toBe(0.5);
             expect(metrics.scaleY).toBe(0.5);
         });
@@ -710,7 +709,7 @@ describe("utils", () => {
         it("should handle zero offsetHeight for none scale", () => {
             container.style.width = "100px";
             container.style.height = "0px";
-            const metrics = getContainerBoxMetrics(container);
+            const metrics = getBoxMetrics(container);
             expect(metrics.scaleX).toBe(1);
             expect(metrics.scaleY).toBe(1);
         });
@@ -719,7 +718,7 @@ describe("utils", () => {
             container.style.width = "100px";
             container.style.height = "0px";
             container.style.scale = "0.5";
-            const metrics = getContainerBoxMetrics(container);
+            const metrics = getBoxMetrics(container);
             expect(metrics.scaleX).toBe(0.5);
             expect(metrics.scaleY).toBe(0.5);
         });
@@ -737,7 +736,7 @@ describe("utils", () => {
             container.style.scale = "0.5";
             container.appendChild(svg);
             document.body.appendChild(container);
-            const metrics = getContainerBoxMetrics(svg);
+            const metrics = getBoxMetrics(svg);
             expect(metrics.scaleX).toBe(0.5);
             expect(metrics.scaleY).toBe(0.5);
         });
@@ -749,7 +748,7 @@ describe("utils", () => {
             container.style.borderWidth = "4px 3px 2px 10px";
             container.style.padding = "5px 6px 7px 8px";
 
-            const metrics = getContainerBoxMetrics(container);
+            const metrics = getBoxMetrics(container);
             expect(metrics.borderTop).toBe(4);
             expect(metrics.borderRight).toBe(3);
             expect(metrics.borderBottom).toBe(2);
@@ -775,7 +774,7 @@ describe("utils", () => {
             container.style.borderWidth = "4px 3px 2px 10px";
             container.style.padding = "5px 6px 7px 8px";
 
-            const metrics = getContainerBoxMetrics(container);
+            const metrics = getBoxMetrics(container);
             expect(metrics.borderTop).toBe(4);
             expect(metrics.borderRight).toBe(3);
             expect(metrics.borderBottom).toBe(2);

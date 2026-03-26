@@ -162,7 +162,7 @@ export function getLayoutItemFixedOffsetParent(container: Element): Element | nu
 
 export function getPointerOffset(target: Element, pointer: Pick<PointerEvent, "clientX" | "clientY">): PointerOffset {
     const targetRect = target.getBoundingClientRect();
-    const targetBoxMetrics = getContainerBoxMetrics(target);
+    const targetBoxMetrics = getBoxMetrics(target);
     const globalOffset = {
         left: pointer.clientX - targetRect.left,
         top: pointer.clientY - targetRect.top,
@@ -180,8 +180,8 @@ export function getPointerOffset(target: Element, pointer: Pick<PointerEvent, "c
     };
 }
 
-export function getContainerBoxMetrics(container: HTMLElement | Element): BoxMetrics {
-    const style = window.getComputedStyle(container);
+export function getBoxMetrics(target: HTMLElement | Element): BoxMetrics {
+    const style = window.getComputedStyle(target);
     const boxSizing = style.boxSizing || "content-box";
     const borderTop = validatePositiveNumber(parseFloat(style.borderTopWidth));
     const borderRight = validatePositiveNumber(parseFloat(style.borderRightWidth));
@@ -196,12 +196,12 @@ export function getContainerBoxMetrics(container: HTMLElement | Element): BoxMet
     let scaleX = 1;
     let scaleY = 1;
     let shouldUseProbe = true;
-    if (container instanceof HTMLElement) {
-        if (container.offsetWidth > 0 && container.offsetHeight > 0) {
-            const rect = container.getBoundingClientRect();
-            scaleX = rect.width / container.offsetWidth;
+    if (target instanceof HTMLElement) {
+        if (target.offsetWidth > 0 && target.offsetHeight > 0) {
+            const rect = target.getBoundingClientRect();
+            scaleX = rect.width / target.offsetWidth;
             scaleX = Math.abs(scaleX - 1) < 1e-4 ? 1 : parseFloat(scaleX.toFixed(4));
-            scaleY = rect.height / container.offsetHeight;
+            scaleY = rect.height / target.offsetHeight;
             scaleY = Math.abs(scaleY - 1) < 1e-4 ? 1 : parseFloat(scaleY.toFixed(4));
             shouldUseProbe = false;
         }
@@ -217,16 +217,16 @@ export function getContainerBoxMetrics(container: HTMLElement | Element): BoxMet
         probe.style.opacity = "0";
         probe.style.boxSizing = "border-box";
         probe.style.pointerEvents = "none";
-        container.appendChild(probe);
+        target.appendChild(probe);
         const probeRect = probe.getBoundingClientRect();
         scaleX = probeRect.width / probe.offsetWidth;
         scaleX = Math.abs(scaleX - 1) < 1e-4 ? 1 : parseFloat(scaleX.toFixed(4));
         scaleY = probeRect.height / probe.offsetHeight;
         scaleY = Math.abs(scaleY - 1) < 1e-4 ? 1 : parseFloat(scaleY.toFixed(4));
-        container.removeChild(probe);
+        target.removeChild(probe);
     }
-    const layoutWidth = container.clientWidth - paddingLeft - paddingRight;
-    const layoutHeight = container.clientHeight - paddingTop - paddingBottom;
+    const layoutWidth = target.clientWidth - paddingLeft - paddingRight;
+    const layoutHeight = target.clientHeight - paddingTop - paddingBottom;
     return {
         borderTop,
         borderRight,
