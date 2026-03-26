@@ -25,7 +25,7 @@
         "grid"
     ],
     "scripts": {
-        "postinstall": "npx playwright install chromium --with-deps",
+        "prepare": "npx playwright install chromium --with-deps",
         "lint": "biome lint",
         "typecheck": "tsc --noEmit",
         "build": "rimraf dist && npm run tsc-cjs && npm run tsc-esm && npm run build-types && node ./build.mjs && rimraf esm",
