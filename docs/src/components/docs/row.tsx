@@ -23,24 +23,32 @@ export function RowSample() {
         };
     });
     return (
-        <DndLayout
-            className="common-layout"
+        <div
             style={{
-                height: 600,
+                height: 500,
+                paddingBlock: 24,
+                overflow: "auto",
             }}
-            layout={layout}
-            itemRender={(item) => {
-                return (
-                    <div
-                        className="common-layout-item"
-                        style={{
-                            width: 200,
-                        }}
-                    >
-                        {item.id}
-                    </div>
-                );
-            }}
-        />
+        >
+            <DndLayout
+                className="common-layout"
+                style={{
+                    height: "100%",
+                }}
+                layout={layout}
+                itemRender={(item) => {
+                    return (
+                        <div
+                            className="common-layout-item"
+                            style={{
+                                width: 200,
+                            }}
+                        >
+                            {item.id}
+                        </div>
+                    );
+                }}
+            />
+        </div>
     );
 }
