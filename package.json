@@ -22,5 +22,9 @@
     ],
     "devDependencies": {
         "docusaurus-plugin-module-alias": "^0.0.2"
+    },
+    "allowScripts": {
+        "core-js@3.49.0": true,
+        "@swc/core@1.15.40": true
     }
 }
